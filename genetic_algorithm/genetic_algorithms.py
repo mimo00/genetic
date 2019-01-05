@@ -13,9 +13,9 @@ import numpy
 
 class GeneticAlgorithm:
     def __init__(self, profit_weights: List[chromosomes.ProfitWeight], max_weight, population_size, max_generation,
-                 selector=selections.ProportionalSelection(0.3),
+                 selector=selections.ProportionalSelection(0.1),
                  crossover_obj=crossovers.SinglePointCrossover(0.5),
-                 mutator=mutations.Mutation()):
+                 mutator=mutations.Mutation(0.001)):
         self.profit_weights = profit_weights
         self.population_size = population_size
         self.max_weight = max_weight
@@ -30,6 +30,7 @@ class GeneticAlgorithm:
         generation_number = 0
         while not self._end(generation_number):
             population = self.mutate(self.crossover(self.select(population)))
+            self._fitness(population)
             generation_number += 1
             print(self._get_data(population))
 
