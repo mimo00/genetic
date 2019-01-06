@@ -14,7 +14,7 @@ import numpy
 class GeneticAlgorithm:
     def __init__(self, profit_weights: List[chromosomes.ProfitWeight], max_weight, population_size, max_generation,
                  selector=selections.ProportionalSelection(0.1),
-                 crossover_obj=crossovers.SinglePointCrossover(0.5),
+                 crossover_obj=crossovers.SinglePointCrossover(0.2),
                  mutator=mutations.Mutation(0.001)):
         self.profit_weights = profit_weights
         self.population_size = population_size
@@ -23,6 +23,10 @@ class GeneticAlgorithm:
         self.selector = selector
         self.crossover_obj = crossover_obj
         self.mutator = mutator
+        self.maxs = []
+        self.mins = []
+        self.means = []
+        self.generations = []
 
     def start(self):
         population = self._generate_initial_population()
@@ -32,7 +36,7 @@ class GeneticAlgorithm:
             population = self.mutate(self.crossover(self.select(population)))
             self._fitness(population)
             generation_number += 1
-            print(self._get_data(population))
+            self.update_statistic(population, generation_number)
 
     def _generate_initial_population(self):
         population = [chromosomes.Chromosome(self.profit_weights, self.max_weight) for _ in range(self.population_size)]
@@ -54,6 +58,9 @@ class GeneticAlgorithm:
     def mutate(self, population):
         return self.mutator.mutate(population)
 
-    def _get_data(self, population):
+    def update_statistic(self, population, generation_number):
         values = [chromosom.profit() for chromosom in population]
-        return ((max(values), numpy.mean(values)))
+        self.maxs.append(max(values))
+        self.mins.append(min(values))
+        self.means.append(numpy.mean(values))
+        self.generations.append(generation_number)
