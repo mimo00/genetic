@@ -8,7 +8,7 @@ ProfitWeight = collections.namedtuple('ProfitWeight', ['profit', 'weight'])
 class Chromosome:
     def __init__(self, profit_weights: List[ProfitWeight], max_weight, data=None):
         self.max_weight = max_weight
-        self.profit_weights = profit_weights
+        self.profit_weights = sorted(profit_weights, key=lambda profit_weight: profit_weight.weight, reverse=True)
         if data:
             self.data = data
         else:
