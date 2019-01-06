@@ -30,8 +30,6 @@ class ProportionalSelection(Selection):
             sum_ += chromosome.profit() + self.a
         for index, chromosome in enumerate(population):
             probability[index] = (chromosome.profit() + self.a) / sum_
-        # print(sum(probability))
-        # assert sum(probability) == 1.0
         return probability
 
 
@@ -67,5 +65,4 @@ class ThresholdSelection(Selection):
                 probability[index] = 1/(int(pop_len*self.q))
             else:
                 probability[index] = 0
-        print(probability)
         return probability
