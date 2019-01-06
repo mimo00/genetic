@@ -1,6 +1,8 @@
 import csv
 
 import genetic_algorithm.chromosomes
+import pandas as pd
+import matplotlib.pyplot as plt
 
 profits = []
 with open('test_data/p1w.csv', newline='') as csvfile:
@@ -23,5 +25,15 @@ for i in zip(profits, weights):
     profit_weights.append(genetic_algorithm.chromosomes.ProfitWeight(i[0], i[1]))
 
 
-g_a = genetic_algorithms.GeneticAlgorithm(profit_weights, 100, 50, 100000)
+g_a = genetic_algorithms.GeneticAlgorithm(profit_weights, 100, 30, 1000)
 g_a.start()
+df = pd.DataFrame({
+    'max': g_a.maxs,
+    'mean': g_a.means,
+    'min': g_a.mins,
+}, index=g_a.generations)
+print(df)
+plt.figure()
+df.plot()
+plt.show()
+
