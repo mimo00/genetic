@@ -1,14 +1,21 @@
-import collections
 import random
 from typing import List
 
-ProfitWeight = collections.namedtuple('ProfitWeight', ['profit', 'weight'])
+
+class ProfitWeight:
+    def __init__(self, profit, weight):
+        self.profit = profit
+        self.weight = weight
+
+    @property
+    def value(self):
+        return self.profit/self.weight
 
 
 class Chromosome:
     def __init__(self, profit_weights: List[ProfitWeight], max_weight, data=None):
         self.max_weight = max_weight
-        self.profit_weights = sorted(profit_weights, key=lambda profit_weight: profit_weight.weight, reverse=True)
+        self.profit_weights = sorted(profit_weights, key=lambda profit_weight: profit_weight.value, reverse=True)
         if data:
             self.data = data
         else:

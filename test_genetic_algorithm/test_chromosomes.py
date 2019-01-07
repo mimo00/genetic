@@ -2,9 +2,9 @@ from genetic_algorithm import chromosomes
 
 
 class TestChromosomes:
-    def test_profit_weights_are_sort_by_weights(self):
-        pw1 = chromosomes.ProfitWeight(profit=50, weight=15)
-        pw2 = chromosomes.ProfitWeight(profit=100, weight=20)
+    def test_profit_weights_are_sort_by_values(self):
+        pw1 = chromosomes.ProfitWeight(profit=50, weight=40)
+        pw2 = chromosomes.ProfitWeight(profit=100, weight=1)
         profit_weights = [pw1, pw2]
         chromosome = chromosomes.Chromosome(profit_weights, 40, [1, 0])
         assert chromosome.profit_weights == [pw2, pw1]
