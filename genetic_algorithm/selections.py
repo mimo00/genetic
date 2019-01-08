@@ -50,6 +50,7 @@ class TournamentSelection(Selection):
 
 class ThresholdSelection(Selection):
     def __init__(self, q):
+        assert q <= 1.0
         self.q = q
 
     def _get_population(self, population):
