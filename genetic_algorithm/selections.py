@@ -38,7 +38,7 @@ class TournamentSelection(Selection):
         self.s = s
 
     def _get_population(self, population):
-        return sorted(population, key=lambda chromosome: chromosome.profit())
+        return sorted(population, key=lambda chromosome: chromosome.profit(), reverse=True)
 
     def _get_probability(self, population):
         probability = [0] * len(population)
@@ -53,7 +53,7 @@ class ThresholdSelection(Selection):
         self.q = q
 
     def _get_population(self, population):
-        return sorted(population, key=lambda chromosome: chromosome.profit())
+        return sorted(population, key=lambda chromosome: chromosome.profit(), reverse=True)
 
     def _get_probability(self, population):
         probability = [0] * len(population)
